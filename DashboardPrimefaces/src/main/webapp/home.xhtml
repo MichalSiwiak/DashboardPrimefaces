@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Sales Dashboard</title>
+	<link href="styles.css" rel="stylesheet" type="text/css" />
+	<link
+		href="https://fonts.googleapis.com/css?family=Lato:400,900&amp;subset=latin-ext"
+		rel="stylesheet" />
+	<link href="css/fontello.css" rel="stylesheet" type="text/css" />
+</h:head>
+<h:body>
+	<div id="container">
+		<h:form>
+			<div id="manu">
+				<div class="option">
+					<h:commandLink class="commandLink" action="home.xhtml">SALES DASHBOARD</h:commandLink>
+				</div>
+				<div class="option">
+					<h:commandLink class="commandLink" action="about.xhtml">About the project</h:commandLink>
+				</div>
+				<div class="option">
+					<a class="commandLink"
+						href="https://github.com/MichalSiwiak/DashboardPrimefaces"
+						target="_blank">GitHub source<i class="icon-github"></i>
+					</a>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+		</h:form>
+		<div id="content">
+			<p:ajaxStatus onstart="PF('statusDialog').show()"
+				onsuccess="PF('statusDialog').hide()" />
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<h:graphicImage value="resources/images/ajax-loader.gif" />
+			</p:dialog>
+			<h:form>
+				<p:growl id="growl" showDetail="true" />
+				<p:toolbar>
+					<f:facet name="left">
+						<h:panelGrid columns="10" columnClasses="column">
+							<h:outputLabel value="Date:" />
+							<p:selectOneMenu value="#{chartView.period}"
+								valueChangeListener="#{chartView.periodChanged}">
+								<p:ajax process="@this" update="chart growl table pie" />
+								<f:selectItems value="#{chartView.periodInMap}" />
+							</p:selectOneMenu>
+							<h:outputLabel value="Market:" />
+							<p:selectOneMenu value="#{chartView.market}"
+								valueChangeListener="#{chartView.marketChanged}">
+								<p:ajax process="@this" update="chart growl table pie" />
+								<f:selectItems value="#{chartView.marketInMap}" />
+							</p:selectOneMenu>
+							<h:outputLabel value="Category:" />
+							<p:selectOneMenu value="#{chartView.category}"
+								valueChangeListener="#{chartView.categoryChanged}">
+								<p:ajax process="@this" update="chart growl table pie" />
+								<f:selectItems value="#{chartView.categoryInMap}" />
+							</p:selectOneMenu>
+							<h:outputLabel value="Period:" />
+							<p:slider for="number" minValue="5" maxValue="20"
+								styleClass="slider">
+								<p:ajax event="slideEnd" listener="#{chartView.onSlideEnd}"
+									update="chart growl table pie" />
+							</p:slider>
+							<p:inputText id="number" value="#{chartView.limit}" />
+						</h:panelGrid>
+					</f:facet>
+				</p:toolbar>
+				<div id="pie">
+					<p:panel id="basic1" header="% Share of products"
+						style="height: 370px">
+						<p:chart id="pie" type="pie" model="#{chartView.pieModel}"
+							responsive="true" />
+					</p:panel>
+				</div>
+				<div id="table">
+					<p:dataTable id="table" styleClass="results"
+						value="#{chartView.resultRows}" var="resultRow" reflow="true"
+						rows="5" paginator="true">
+						<p:column>
+							<f:facet name="header" style="text-align:center;">Producer</f:facet>    				
+               #{resultRow.name}
+            </p:column>
+						<p:column>
+							<f:facet name="header" style="text-align:center;">Value Sales LY</f:facet>
+               #{resultRow.valueSalesLY}
+            </p:column>
+						<p:column>
+							<f:facet name="header" style="text-align:center;">Value Sales TY</f:facet>
+               #{resultRow.valueSalesTY}
+            </p:column>
+						<p:column>
+							<f:facet name="header" style="text-align:center;">% Change Sales</f:facet>
+               #{resultRow.change}
+            </p:column>
+					</p:dataTable>
+				</div>
+				<div style="clear: both;"></div>
+				<div id="bar">
+					<p:panel id="basic3" header="Ranking of products"
+						footer="Sales value for products representing the selected category, sales period and market.
+"
+						style="margin-top:20px">
+						<p:chart id="chart" type="bar" model="#{chartView.barModel}"
+							responsive="true" />
+					</p:panel>
+				</div>
+			</h:form>
+		</div>
+		<div id="footer">&copy; Michał Siwiak. All rights reserved</div>
+	</div>
+</h:body>
+</html>

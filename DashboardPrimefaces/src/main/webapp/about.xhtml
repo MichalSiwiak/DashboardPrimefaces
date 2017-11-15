@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Sales Dashboard</title>
+	<link href="styles.css" rel="stylesheet" type="text/css" />
+	<link
+		href="https://fonts.googleapis.com/css?family=Lato:400,900&amp;subset=latin-ext"
+		rel="stylesheet" />
+	<link href="css/fontello.css" rel="stylesheet" type="text/css" />
+</h:head>
+<h:body>
+	<div id="container">
+		<h:form>
+			<div id="manu">
+				<div class="option">
+					<h:commandLink class="commandLink" action="home.xhtml">Home</h:commandLink>
+				</div>
+				<div class="option">
+					<h:commandLink class="commandLink" action="about.xhtml">About the project</h:commandLink>
+				</div>
+				<div class="option">
+					<a class="commandLink"
+						href="https://github.com/MichalSiwiak/DashboardPrimefaces"
+						target="_blank">GitHub source<i class="icon-github"></i>
+					</a>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+		</h:form>
+		<div id="content" style="text-align: left; !important">
+			The web application connects to the MySql database using JDBC. The
+			data is then retrieved and displayed on the graphs using primefaces
+			framework. Slider and OneMenu components at the top of the page
+			generate sql queries and refresh the page using ajax<br /> <br />
+			Tools and technologies used for the application:
+			<ul>
+				<li>Java</li>
+				<li>JavaServer Faces</li>
+				<li>Primefaces</li>
+				<li>MySQL</li>
+				<li>JDBC</li>
+				<li>AJAX</li>
+			</ul>
+			<br /> <br /> Check-out source code of maven project on <a
+				href="https://github.com/MichalSiwiak/CreditLoginService"
+				target="_blank">GitHub.</a>
+		</div>
+		<div id="footer">&copy; Michał Siwiak. All rights reserved</div>
+	</div>
+</h:body>
+</html>
